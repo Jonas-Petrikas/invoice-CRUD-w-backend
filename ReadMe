@@ -1,0 +1,5 @@
+Serveris sujungtas, style ir app.js miksuoja ir saugo į public
+
+- Fetchina info iš serverio, jį saugo JSON'e (dabar užkomentuota)
+
+- HTML suklijuoja iš dalių ir atvaizduoja
