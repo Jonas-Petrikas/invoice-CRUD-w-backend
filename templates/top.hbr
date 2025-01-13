@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="{{URL}}style.css">
+    <link rel="stylesheet" href="{{URL}}invoiceStyle.css">
+    <script src="{{URL}}app.js" defer></script>
     <title>{{pageTitle}}</title>
 
 
@@ -21,9 +22,10 @@
                 </div>
                 <div class="menu-items">
                     <ul>
-                        <li>Peržiūrėti sąrašą</li>
-                        <li>option 2</li>
-                        <li>option 3</li>
+                        <li><a href="{{URL}}">Pagrindinis</a></li>
+                        <li><a href="{{URL}}list">Peržiūrėti sąrašą</a></li>
+                        <li><a href="{{URL}}new">Nauja SF</a></li>
+
                     </ul>
                 </div>
             </nav>

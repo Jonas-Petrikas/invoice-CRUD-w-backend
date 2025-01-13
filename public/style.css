@@ -26,19 +26,27 @@ h1 {
   padding: 0 30px;
 }
 .top-menu nav .logo {
-  width: 350px;
+  width: 400px;
+  font-weight: 900;
+  font-size: 20px;
 }
 .top-menu nav ul {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 450px;
   list-style: none;
-  -moz-column-gap: 30px;
-       column-gap: 30px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
 }
 .top-menu nav ul li {
-  width: 100%;
   padding: 0, 20px;
+}
+.top-menu nav ul li a {
+  color: darkcyan;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
 }
 
 .content-section {
@@ -59,4 +67,28 @@ h1 {
 .content-section .content-container button {
   width: 150px;
   margin-top: 5px;
+}
+.content-section .list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  padding: 0 30px;
+  margin-top: 30px;
+  row-gap: 10px;
+}
+.content-section .list-container .list-item {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 550px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.content-section .list-container .th {
+  font-weight: 700;
+  font-size: 16px;
+  color: black;
 }

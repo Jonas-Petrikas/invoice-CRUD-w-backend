@@ -26,19 +26,28 @@ h1 {
         padding: 0 30px;
 
         .logo {
-            width: 350px;
+            width: 400px;
+            font-weight: 900;
+            font-size: 20px;
         }
 
         ul {
             display: flex;
             justify-content: center;
-            width: 100%;
+            width: 450px;
             list-style: none;
-            column-gap: 30px;
+            column-gap: 20px;
 
             li {
-                width: 100%;
                 padding: 0, 20px;
+
+                a {
+                    color: darkcyan;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 14px;
+                    text-decoration: none;
+                }
             }
         }
     }
@@ -65,5 +74,33 @@ h1 {
         }
 
     }
+
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 1280px;
+        width: 100%;
+        padding: 0 30px;
+        margin-top: 30px;
+        row-gap: 10px;
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 550px;
+            column-gap: 20px;
+        }
+
+        .th {
+            font-weight: 700;
+            font-size: 16px;
+            color: black
+        }
+
+    }
+
 
 }

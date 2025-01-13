@@ -2,14 +2,16 @@ Atlikta:
 ✅ Serveris sujungtas, style ir app.js miksuoja ir saugo į public
 ✅ Fetchina info iš serverio, jį saugo JSON'e (dabar užkomentuota)
 ✅ HTML suklijuoja iš dalių ir atvaizduoja
+✅ SF peržiūra (pagal query = SF:ID)
+✅ Atsivaizduoja sąrašas 
 
 
 Sekantys darbai
-→ SF peržiūra (pagal query = SF:ID)
+
 → Mygtuką paspaudus įsimeta nauja SF
     → Perkeklia į tos SF peržiūrą (pagal ID?)
-→ Atsivaizduoja sąrašas 
-    → Galima paspausti peržiūrėti /redaguoti /trinti
+
+→ Sąrašo elementus galima peržiūrėti /redaguoti /trinti
 
 → //REDAGUOTI
 → //TRINTI
