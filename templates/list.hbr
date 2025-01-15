@@ -1,17 +1,14 @@
 <main>
-    <h1>Sąskaitų sąrašas</h1>
+
     <section class="content-section">
         <div class="list-container">
-            <div class="list-item th">
-                <div>SF numeris</div>
-                <div>Data</div>
-                <div>Bendra suma</div>
-            </div>
+            <h1>Sąskaitų sąrašas</h1>
             {{#each invoices.items}}
             <div class="list-item">
                 <div>{{this.number}}</div>
                 <div>{{this.date}}</div>
-                <div>Bendra suma</div>
+                <div>{{this.grandTotal}} Eur</div>
+                <a href="{{URL}}read/{{this.number}}"><button>peržiūrėti</button></a>
             </div>
 
             {{/each}}

@@ -2,9 +2,12 @@
     <section class="content-section">
         <div class="content-container">
             <h1>Sąskaitos faktūros</h1>
-            <button>Įkelti naują sąsk. faktūra</button>
-            <button>Sąskaitų sąrašas</button>
-            <button>Poop</button>
+            <div class="buttons">
+                <a href="{{URL}}new"><button><span class="text">Įkelti naują SF</span></button></a>
+                <a href="{{URL}}list"><button><span class="text">Sąskaitų sąrašas</span></button></a>
+                <button><span class="text">Poop</span></button>
+            </div>
+
 
         </div>
 

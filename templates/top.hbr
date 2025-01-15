@@ -17,7 +17,9 @@
         <section class="top-menu">
             <nav>
                 <div class="logo">
-                    <h4>SąskaitaFaktūra</h4>
+                    <a href="{{URL}}">
+                        <h4>SąskaitaFaktūra</h4>
+                    </a>
 
                 </div>
                 <div class="menu-items">
