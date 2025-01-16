@@ -128,6 +128,42 @@ app.get('/read/:number', (req, res) => {
     res.send(html);
 });
 
+app.get('/delete/:number', (req, res) => {
+    let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
+    invoices = JSON.parse(invoices);
+
+    const invoice = invoices.items.find(invoice => invoice.number === req.params.number);
+
+
+
+    const data = {
+        pageTitle: invoice.number + ` sąskaitos trynimas`,
+        invoice,
+        URL,
+    };
+
+    const html = makeHTML(data, 'delete');
+
+    res.send(html);
+});
+
+app.get('/destroy/:number', (req, res) => {
+    let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
+    invoices = JSON.parse(invoices);
+
+    let fileContent = {};
+
+
+    const invoice = invoices.items.find(invoice => invoice.number === req.params.number);
+
+    const filteredInvoice = invoices.items.filter((inv) => inv !== invoice);
+
+    fileContent.items = filteredInvoice;
+    fs.writeFileSync('./data/invoices.json', JSON.stringify(fileContent), 'utf8');
+
+    res.redirect(`${URL}list`);
+});
+
 app.get('/list', (req, res) => {
     let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
     invoices = JSON.parse(invoices);

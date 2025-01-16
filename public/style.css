@@ -24,7 +24,7 @@ h1 {
   justify-content: center;
   width: 100%;
   margin-top: 30px;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
 }
 .top-menu nav {
   display: flex;
@@ -134,6 +134,16 @@ button {
   white-space: nowrap;
   cursor: pointer;
 }
+button.read {
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 3px 10px;
+}
+button.delete {
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  padding: 3px 10px;
+}
 
 button:active,
 button:hover {
@@ -153,12 +163,6 @@ button:hover span {
   background: none;
 }
 
-@media (min-width: 768px) {
-  button {
-    font-size: 16px;
-    min-width: 140px;
-  }
-}
 .buttons {
   display: flex;
   -moz-column-gap: 10px;
@@ -167,4 +171,15 @@ button:hover span {
   width: 100%;
   margin-bottom: 10px;
   padding: 20px;
+}
+
+.list {
+  display: flex;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  justify-content: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 0px;
 }

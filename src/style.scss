@@ -25,7 +25,7 @@ h1 {
     justify-content: center;
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 45px;
+    margin-bottom: 20px;
 
     nav {
         display: flex;
@@ -147,7 +147,18 @@ button {
     touch-action: manipulation;
     white-space: nowrap;
     cursor: pointer;
+
+    &.read {
+        min-width: fit-content;
+        padding: 3px 10px;
+    }
+
+    &.delete {
+        min-width: fit-content;
+        padding: 3px 10px;
+    }
 }
+
 
 button:active,
 button:hover {
@@ -167,12 +178,12 @@ button:hover span {
     background: none;
 }
 
-@media (min-width: 768px) {
-    button {
-        font-size: 16px;
-        min-width: 140px;
-    }
-}
+// @media (min-width: 768px) {
+//     button {
+//         font-size: 16px;
+//         min-width: 140px;
+//     }
+// }
 
 .buttons {
     display: flex;
@@ -181,4 +192,13 @@ button:hover span {
     width: 100%;
     margin-bottom: 10px;
     padding: 20px;
+}
+
+.list {
+    display: flex;
+    column-gap: 5px;
+    justify-content: center;
+    width: fit-content;
+    margin-bottom: 10px;
+    padding: 0px;
 }
