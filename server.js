@@ -128,6 +128,30 @@ app.get('/read/:number', (req, res) => {
     res.send(html);
 });
 
+app.get('/edit/:number', (req, res) => {
+    let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
+    invoices = JSON.parse(invoices);
+
+    const invoice = invoices.items.find(invoice => invoice.number === req.params.number);
+    invoice.items.map(item => {
+        if (item.discount.P) {
+            item.discount.P = item.discount.P.slice(2, -2)
+        }
+    });
+
+    // item.discount.P = parseFloat(item.discount.P)
+
+    const data = {
+        pageTitle: invoice.number + ' sąskaitos redagavimas',
+        invoice,
+        URL,
+    };
+
+    const html = makeHTML(data, 'edit');
+
+    res.send(html);
+});
+
 app.get('/delete/:number', (req, res) => {
     let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
     invoices = JSON.parse(invoices);
@@ -137,7 +161,7 @@ app.get('/delete/:number', (req, res) => {
 
 
     const data = {
-        pageTitle: invoice.number + ` sąskaitos trynimas`,
+        pageTitle: invoice.number + ' sąskaitos trynimas',
         invoice,
         URL,
     };

@@ -65,7 +65,7 @@
             }
 
             .item-name {
-                width: 380px;
+                width: 300px;
                 padding: 0 5px;
             }
 
@@ -83,15 +83,28 @@
             }
 
             .discount {
-                width: 140px;
-                text-align: right;
+                width: 200px;
+                text-align: center;
                 padding: 0 5px;
+
             }
 
             .total-item {
                 width: 100px;
                 text-align: right;
                 padding: 0 5px;
+            }
+
+            .edit-qty {
+                width: 50px;
+                text-align: center;
+                padding: 0 3px;
+            }
+
+            .edit-disc {
+                width: 50px;
+                text-align: center;
+                padding: 0 3px;
             }
 
         }

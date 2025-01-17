@@ -55,7 +55,7 @@
   text-align: right;
 }
 .invoice-container #items .item .item-name {
-  width: 380px;
+  width: 300px;
   padding: 0 5px;
 }
 .invoice-container #items .item .price {
@@ -69,14 +69,24 @@
   padding: 0 5px;
 }
 .invoice-container #items .item .discount {
-  width: 140px;
-  text-align: right;
+  width: 200px;
+  text-align: center;
   padding: 0 5px;
 }
 .invoice-container #items .item .total-item {
   width: 100px;
   text-align: right;
   padding: 0 5px;
+}
+.invoice-container #items .item .edit-qty {
+  width: 50px;
+  text-align: center;
+  padding: 0 3px;
+}
+.invoice-container #items .item .edit-disc {
+  width: 50px;
+  text-align: center;
+  padding: 0 3px;
 }
 .invoice-container .totals {
   display: flex;

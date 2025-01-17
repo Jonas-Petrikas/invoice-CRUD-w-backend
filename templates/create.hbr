@@ -69,8 +69,8 @@
 
     </section>
     <div class="buttons">
-        <a href="{{URL}}save"><button><span class="text">Išsaugoti</span></button></a>
-        <a href="{{URL}}"><button><span class="text">Atšaukti</span></button></a>
+        <a href="{{URL}}save"><button><span class="text">✅ Išsaugoti</span></button></a>
+        <a href="{{URL}}"><button><span class="text">❌ Atšaukti</span></button></a>
 
     </div>
 </main>
