@@ -12,11 +12,16 @@ Atlikta:
     ✅ Perkelia į tos SF peržiūrą 
     ✅Paspaudus išsaugoti, prisdeda JSONe
 
+Redaguotą elementą 
+    ✅ išsaugoti JSONE
+    ✅pridėti ATSTATYTI button
+
 Sekantys darbai:
 
-
-→ Redaguotą elementą 
-    → išsaugoti JSONE
-    → pridėti ATSTATYTI button
 → Alertai - messages
+
+(optional)
+→ Bebro hightlight
+→ Custom create
+
 
