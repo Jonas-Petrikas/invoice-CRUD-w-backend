@@ -41,23 +41,27 @@
                     <div class="total-item th">Suma, Eur</div>
                 </div>
                 <hr>
-                {{#each invoice.items}}
-                <div class="item" data-item>
-                    <div class="item-name">{{this.description}}</div>
-                    <div class="price" data-item-price>{{this.price}}</div>
-                    <div class="quantity"><input type="number" class="edit-qty" value="{{this.quantity}}"
-                            data-item-qty></input></div>
-                    <div class="discount">
-                        <input type="text" class="edit-disc" value="{{this.discount.Eur}}" data-item-discount-eur>
-                        EUR</input>
-                        <input type="text" class="edit-disc" value="{{this.discount.P}}" data-item-discount-p>
-                        %</input>
+                <form action="{{URL}}update/{{invoice.number}}" method="post">
+                    {{#each invoice.items}}
+                    <div class="item" data-item>
+                        <div class="item-name">{{this.description}}</div>
+                        <div class="price" data-item-price>{{this.price}}</div>
+                        <div class="quantity"><input type="number" name="quantity" class="edit-qty"
+                                value="{{this.quantity}}" data-item-qty></input></div>
+                        <div class="discount">
+                            <input type="text" name="discount_eur" class="edit-disc" value="{{this.discount.Eur}}"
+                                data-item-discount-eur>
+                            EUR</input>
+                            <input type="text" name="discount_p" class="edit-disc" value="{{this.discount.P}}"
+                                data-item-discount-p>
+                            %</input>
+                        </div>
+                        <div class="total-item" data-item-discounted-total>{{this.itemDiscountedTotal}}</div>
                     </div>
-                    <div class="total-item" data-item-discounted-total>{{this.itemDiscountedTotal}}</div>
-                </div>
-                <hr>
-                {{/each}}
+                    <hr>
+                    {{/each}}
             </div>
+
             <div class="totals">
                 <div data-sum class="data-sum"></div>
                 <div><b>Tarpinė suma:</b> <span data-pre-total>{{invoice.subTotal}}</span> EUR</div>
@@ -71,11 +75,14 @@
         </div>
     </section>
     <div class="buttons">
-        <a href="{{URL}}"><button><span class="text">✅ Išsaugoti</span></button></a>
-        <a href="{{URL}}edit/{{invoice.number}}"><button><span class="text">Atsatatyti</span></button></a>
+        <button type="submit"><span class="text">✅ Išsaugoti</span></button>
+        <button type="reset"><span class="text">Atsatatyti</span></button>
+
+        </form>
         <a href="{{URL}}"><button><span class="text">❌ Atšaukti</span></button></a>
 
 
     </div>
+
 
 </main>

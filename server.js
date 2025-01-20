@@ -2,10 +2,16 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const URL = 'http://localhost:3000/'
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const handlebars = require('handlebars');
 
 const apiUrl = "https://in3.dev/inv/";
+
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
 invoices = JSON.parse(invoices);
@@ -71,6 +77,47 @@ function newInv(newData) {
 
 }
 
+function editedInv(newData) {
+    newData.subTotal = 0;
+    newData.vat = 0;
+    newData.grandTotal = 0;
+    newData.totalDiscounts = 0;
+    newData.items.map(item => {
+
+        item.itemTotal = item.quantity * item.price
+        item.itemDiscountedTotal = (item.quantity * item.price - item.discount.Eur).toFixed(2);
+        newData.subTotal += item.itemTotal;
+        newData.totalDiscounts += item.discount.Eur;
+
+        item.discount.Eur = `${item.discount.Eur.toFixed(2)}`;
+        item.discount.P = `[-${item.discount.P.toFixed(2)}%]`;
+    })
+
+    newData.vat = ((parseFloat(newData.subTotal) + parseFloat(newData.shippingPrice)) * 0.21);
+    newData.grandTotal = parseFloat(newData.subTotal) - parseFloat(newData.totalDiscounts) + parseFloat(newData.shippingPrice) + newData.vat;
+
+    newData.subTotal = newData.subTotal.toFixed(2);
+    newData.grandTotal = newData.grandTotal.toFixed(2);
+    newData.totalDiscounts = newData.totalDiscounts.toFixed(2);
+    newData.vat = newData.vat.toFixed(2);
+    newData.shippingPrice = newData.shippingPrice;
+
+    let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
+    invoices = JSON.parse(invoices);
+
+    let fileContent = {};
+    const invoice = invoices.items.find(invoice => invoice.number === newData.number);
+
+    let filteredInvoices = invoices.items.filter((inv) => inv !== invoice);
+
+    filteredInvoices.push(newData);
+
+    fileContent.items = filteredInvoices;
+    fs.writeFileSync('./data/invoices.json', JSON.stringify(fileContent), 'utf8');
+
+
+}
+
 // Function to add a new item
 function addItem(newData) {
     // Read the current content of the file
@@ -88,12 +135,10 @@ function addItem(newData) {
     // Write the updated content back to the file
     fs.writeFileSync('./data/invoices.json', JSON.stringify(fileContent), 'utf8');
     console.log('New item added successfully!');
-    console.log(fileContent)
 }
 
 
-// Serve static files from the 'public' directory
-app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
 
@@ -220,7 +265,6 @@ app.get('/new', (req, res) => {
 
             const json = await response.json();
             newInv(json);
-            console.log(json);
             res.redirect(`${URL}create`);
 
         } catch (error) {
@@ -254,6 +298,36 @@ app.get('/save', (req, res) => {
 
     res.redirect(`${URL}list`);
 
+
+});
+
+app.post('/update/:id', (req, res) => {
+    const id = req.params.id;
+    const invoice = invoices.items.find(invoice => invoice.number === id);
+
+
+    let { quantity, discount_eur, discount_p } = req.body;
+
+
+
+
+    invoice.items.map((item, i) => {
+        quantity[i] = parseInt(quantity[i]);
+        if (discount_eur[i] === '' || discount_p[i] === '') {
+            discount_eur[i] = 0;
+            discount_p[i] = 0;
+        } else {
+            discount_eur[i] = parseFloat(discount_eur[i]);
+            discount_p[i] = parseFloat(discount_p[i]);
+        }
+        item.quantity = quantity[i];
+        item.discount.Eur = discount_eur[i];
+        item.discount.P = discount_p[i];
+    });
+
+    editedInv(invoice);
+
+    res.redirect(URL + 'edit/' + id);
 
 });
 

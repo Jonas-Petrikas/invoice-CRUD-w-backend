@@ -42,7 +42,7 @@ var itemTotalUpdater = function itemTotalUpdater(_) {
       }
       ;
       discEurEl.value = discEur;
-      discPEl.value = discP;
+      discPEl.value = discP.toFixed(2);
       itemTotal.innerText = total.toFixed(2);
       totalsUpdater();
     });
