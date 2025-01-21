@@ -76,9 +76,8 @@
     </section>
     <div class="buttons">
         <button type="submit"><span class="text">✅ Išsaugoti</span></button>
-        <button type="reset"><span class="text">Atsatatyti</span></button>
-
         </form>
+        <a href="{{URL}}edit/{{invoice.number}}"><button> <span class="text">Atsatatyti</span></button></a>
         <a href="{{URL}}"><button><span class="text">❌ Atšaukti</span></button></a>
 
 

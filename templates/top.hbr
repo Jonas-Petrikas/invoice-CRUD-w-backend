@@ -34,3 +34,8 @@
         </section>
 
     </header>
+
+    {{#if message}}
+    <div class="message" data-msg>{{message.text}}
+    </div>
+    {{/if}}

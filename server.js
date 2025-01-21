@@ -7,6 +7,9 @@ const handlebars = require('handlebars');
 
 const apiUrl = "https://in3.dev/inv/";
 
+
+
+
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -186,15 +189,25 @@ app.get('/edit/:number', (req, res) => {
 
     // item.discount.P = parseFloat(item.discount.P)
 
+    let message = fs.readFileSync('./data/message.json', 'utf8');
+    message = JSON.parse(message);
+
     const data = {
         pageTitle: invoice.number + ' sąskaitos redagavimas',
         invoice,
         URL,
+        message
     };
+
+
+
 
     const html = makeHTML(data, 'edit');
 
     res.send(html);
+
+    message = '';
+    fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
 });
 
 app.get('/delete/:number', (req, res) => {
@@ -307,6 +320,15 @@ app.post('/update/:id', (req, res) => {
 
 
     let { quantity, discount_eur, discount_p } = req.body;
+
+    const message = {};
+    message.text = 'Išsaugota!';
+
+    fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
+
+
+
+
 
 
 

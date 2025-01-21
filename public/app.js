@@ -42,7 +42,7 @@ var itemTotalUpdater = function itemTotalUpdater(_) {
       }
       ;
       discEurEl.value = discEur;
-      discPEl.value = discP.toFixed(2);
+      discPEl.value = discP;
       itemTotal.innerText = total.toFixed(2);
       totalsUpdater();
     });
@@ -117,6 +117,12 @@ var totalsUpdater = function totalsUpdater(_) {
   totalDiscountsHtml.innerText = totalDiscounts.toFixed(2);
   grandTotalHtml.innerText = (subtotal + shipping + vat - totalDiscounts).toFixed(2);
 };
+if (document.querySelector('[data-msg]')) {
+  var msg = document.querySelector('[data-msg]');
+  setTimeout(function (_) {
+    msg.remove();
+  }, 3000);
+}
 var init = function init(_) {
   itemTotalUpdater();
 };

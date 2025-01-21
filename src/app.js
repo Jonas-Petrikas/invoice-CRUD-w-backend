@@ -3,10 +3,11 @@ const items = document.querySelectorAll('[data-item]');
 const itemTotalUpdater = _ => {
     items.forEach((item) => {
 
-        const qtyEl = item.querySelector('[data-item-qty]')
-        const discEurEl = item.querySelector('[data-item-discount-eur]')
-        const discPEl = item.querySelector('[data-item-discount-p]')
-        let qty = parseInt(item.querySelector('[data-item-qty]').value)
+        const qtyEl = item.querySelector('[data-item-qty]');
+        const discEurEl = item.querySelector('[data-item-discount-eur]');
+        const discPEl = item.querySelector('[data-item-discount-p]');
+
+        let qty = parseInt(item.querySelector('[data-item-qty]').value);
         const price = parseFloat(item.querySelector('[data-item-price]').innerText)
 
         let discEur = parseFloat(item.querySelector('[data-item-discount-eur]').value)
@@ -48,7 +49,7 @@ const itemTotalUpdater = _ => {
             discEurEl.value = discEur;
 
 
-            discPEl.value = discP.toFixed(2);
+            discPEl.value = discP;
 
 
             itemTotal.innerText = total.toFixed(2);
@@ -147,14 +148,13 @@ const totalsUpdater = _ => {
     vatHtml.innerText = vat.toFixed(2);
     totalDiscountsHtml.innerText = totalDiscounts.toFixed(2);
     grandTotalHtml.innerText = (subtotal + shipping + vat - totalDiscounts).toFixed(2);
+}
 
-
-
-
-
-
-
-
+if (document.querySelector('[data-msg]')) {
+    const msg = document.querySelector('[data-msg]');
+    setTimeout(_ => {
+        msg.remove();
+    }, 3000);
 }
 
 const init = _ => {
