@@ -40,7 +40,9 @@ function newInv(newData) {
     newData.vat = 0;
     newData.grandTotal = 0;
     newData.totalDiscounts = 0;
+    newData.beaver = false;
     newData.items.map(item => {
+
 
         if (item.discount.type === 'fixed') {
             item.discount.Eur = item.discount.value;
@@ -52,6 +54,14 @@ function newInv(newData) {
         } else {
             item.discount.Eur = 0;
             item.discount.P = 0;
+        }
+
+        const regex = /Bebro iškamša/gm;
+
+        console.log(item.description.search(regex));
+
+        if (item.description.search(regex) !== -1) {
+            newData.beaver = true;
         }
 
 
@@ -243,6 +253,11 @@ app.get('/destroy/:number', (req, res) => {
     fileContent.items = filteredInvoice;
     fs.writeFileSync('./data/invoices.json', JSON.stringify(fileContent), 'utf8');
 
+    const message = {};
+    message.text = 'Sąskaita ištrinta!';
+
+    fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
+
     res.redirect(`${URL}list`);
 });
 
@@ -250,15 +265,22 @@ app.get('/list', (req, res) => {
     let invoices = fs.readFileSync('./data/invoices.json', 'utf8');
     invoices = JSON.parse(invoices);
 
+    let message = fs.readFileSync('./data/message.json', 'utf8');
+    message = JSON.parse(message);
+
     const data = {
         pageTitle: 'Sąskaitų sąrašas',
         invoices,
+        message,
         URL,
     };
 
     const html = makeHTML(data, 'list');
 
     res.send(html);
+
+    message = '';
+    fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
 });
 app.get('/new', (req, res) => {
     // fetch(apiUrl)
@@ -309,6 +331,13 @@ app.get('/save', (req, res) => {
 
     addItem(invoice);
 
+
+    const message = {};
+    message.text = 'Sąskaita pridėta!';
+
+    fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
+
+
     res.redirect(`${URL}list`);
 
 
@@ -322,16 +351,9 @@ app.post('/update/:id', (req, res) => {
     let { quantity, discount_eur, discount_p } = req.body;
 
     const message = {};
-    message.text = 'Išsaugota!';
+    message.text = 'Pakeitimai Išsaugoti!';
 
     fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
-
-
-
-
-
-
-
 
     invoice.items.map((item, i) => {
         quantity[i] = parseInt(quantity[i]);
