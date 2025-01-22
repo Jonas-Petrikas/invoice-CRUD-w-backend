@@ -25,8 +25,9 @@
                 <div class="menu-items">
                     <ul>
                         <li><a href="{{URL}}">Pagrindinis</a></li>
+                        <li><a href="{{URL}}new">Įkelti SF</a></li>
                         <li><a href="{{URL}}list">Peržiūrėti sąrašą</a></li>
-                        <li><a href="{{URL}}new">Nauja SF</a></li>
+                        <li><a href="{{URL}}custom">Sukurti SF</a></li>
 
                     </ul>
                 </div>

@@ -1,4 +1,8 @@
 const items = document.querySelectorAll('[data-item]');
+const addLineBtn = document.querySelector('[data-btn-add-line]');
+const delLineBtn = document.querySelectorAll('[data-line-delete]');
+const itemTemplate = document.querySelector('[data-item-template]');
+const dataItems = document.querySelector('[data-items]');
 
 const itemTotalUpdater = _ => {
     items.forEach((item) => {
@@ -37,7 +41,7 @@ const itemTotalUpdater = _ => {
             } else if (discP > 100) {
                 discEur = qty * price;
                 discP = 100;
-                discP = parseFloat(discP).toFixed(2)
+                discP = parseFloat(discP)
             }
             if (!discEur) {
                 discEur = '';
@@ -48,8 +52,10 @@ const itemTotalUpdater = _ => {
 
             discEurEl.value = discEur;
 
+            if (discP !== '') {
+                discPEl.value = discP.toFixed(2);
+            }
 
-            discPEl.value = discP;
 
 
             itemTotal.innerText = total.toFixed(2);
@@ -156,6 +162,35 @@ if (document.querySelector('[data-msg]')) {
         msg.remove();
     }, 3000);
 }
+
+if (addLineBtn) {
+    addLineBtn.addEventListener('click', e => {
+        const clone = itemTemplate.content.cloneNode(true);
+
+        console.log('paspausta');
+        dataItems.appendChild(clone);
+        totalsUpdater();
+        const delLineBtn = document.querySelectorAll('[data-line-delete]');
+        delLineBtn.forEach((button) => {
+            button.addEventListener('click', e => {
+                console.log('paspausta delete');
+                e.target.parentElement.remove();
+                e.target.nextElementSibling.remove();
+                totalsUpdater();
+            })
+        })
+
+    })
+
+}
+
+
+
+
+// delLineBtn.addEventListener('click', e => {
+//     console.log('paspausta delete');
+//     e.target.parentElement.remove();
+// })
 
 const init = _ => {
     itemTotalUpdater()

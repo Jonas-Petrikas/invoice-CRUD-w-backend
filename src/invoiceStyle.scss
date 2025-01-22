@@ -52,6 +52,8 @@
             justify-content: space-between;
             margin: 5px;
             font-size: 14px;
+            border-bottom: 1px solid #45454550;
+            padding: 3px 0 5px 0;
 
 
             .th {
@@ -102,9 +104,28 @@
             }
 
             .edit-disc {
-                width: 50px;
+                width: 60px;
                 text-align: center;
                 padding: 0 3px;
+            }
+
+            .edit-name {
+                width: 350px;
+                text-align: left;
+                padding: 0 3px;
+            }
+
+            .edit-price {
+                width: 60px;
+                text-align: left;
+                padding: 0 3px;
+            }
+
+            .line-delete {
+                font-size: 20px;
+                color: crimson;
+                font-weight: 900;
+                cursor: pointer;
             }
 
         }
@@ -131,7 +152,18 @@
         .finalSum {
             text-decoration: underline;
         }
+
+        .shipping-input {
+            width: 50px;
+            padding: 1px 3px;
+            text-align: right;
+            font-size: 16px;
+        }
     }
+}
+
+input {
+    padding: 5px;
 }
 
 ;

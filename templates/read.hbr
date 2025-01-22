@@ -59,13 +59,16 @@
                 <div data-vat-tax><b>PVM (21%):</b> {{invoice.vat}} EUR</div>
                 <div data-pre-total><b>Visos nuolaidos:</b> -{{invoice.totalDiscounts}} EUR</div>
                 <div></div>
-                <div data-total-final class="data-total"><b>Galutinė suma:</b> <u>{{invoice.grandTotal}} EUR</u> </div>
+                <div data-total-final class="data-total"><b>Galutinė suma:</b> <u>{{invoice.grandTotal}} EUR</u>
+                </div>
             </div>
 
         </div>
+
     </section>
     <div class="buttons">
         <a href="{{URL}}list"><button><span class="text">Grįžti</span></button></a>
+        <button value="Print this page" onClick="window.print()">Spausdinti</button>
 
     </div>
 </main>

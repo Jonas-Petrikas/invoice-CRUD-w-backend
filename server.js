@@ -58,8 +58,6 @@ function newInv(newData) {
 
         const regex = /Bebro iškamša/gm;
 
-        console.log(item.description.search(regex));
-
         if (item.description.search(regex) !== -1) {
             newData.beaver = true;
         }
@@ -176,7 +174,7 @@ app.get('/read/:number', (req, res) => {
 
 
     const data = {
-        pageTitle: `Sąskaitos ${{}} peržiūra'`,
+        pageTitle: req.params.number + ` Sąskaitos peržiūra`,
         invoice,
         URL,
     };
@@ -321,6 +319,26 @@ app.get('/create', (req, res) => {
     };
 
     const html = makeHTML(data, 'create');
+
+    res.send(html);
+});
+
+app.get('custom/new', (req, res) => {
+    res.redirect(`${URL}/custom`);
+
+});
+
+app.get('/custom', (req, res) => {
+    let invoice = fs.readFileSync('./data/temp.json', 'utf8');
+    invoice = JSON.parse(invoice);
+
+    const data = {
+        pageTitle: 'Pridėti naują',
+        invoice,
+        URL,
+    };
+
+    const html = makeHTML(data, 'custom');
 
     res.send(html);
 });

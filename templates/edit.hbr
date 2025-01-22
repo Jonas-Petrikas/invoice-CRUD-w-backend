@@ -40,7 +40,6 @@
                     <div class="discount th">Nuolaida</div>
                     <div class="total-item th">Suma, Eur</div>
                 </div>
-                <hr>
                 <form action="{{URL}}update/{{invoice.number}}" method="post">
                     {{#each invoice.items}}
                     <div class="item" data-item>
@@ -58,7 +57,6 @@
                         </div>
                         <div class="total-item" data-item-discounted-total>{{this.itemDiscountedTotal}}</div>
                     </div>
-                    <hr>
                     {{/each}}
             </div>
 

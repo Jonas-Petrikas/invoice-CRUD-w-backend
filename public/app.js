@@ -8,6 +8,10 @@
 /***/ (() => {
 
 var items = document.querySelectorAll('[data-item]');
+var addLineBtn = document.querySelector('[data-btn-add-line]');
+var delLineBtn = document.querySelectorAll('[data-line-delete]');
+var itemTemplate = document.querySelector('[data-item-template]');
+var dataItems = document.querySelector('[data-items]');
 var itemTotalUpdater = function itemTotalUpdater(_) {
   items.forEach(function (item) {
     var qtyEl = item.querySelector('[data-item-qty]');
@@ -33,7 +37,7 @@ var itemTotalUpdater = function itemTotalUpdater(_) {
       } else if (discP > 100) {
         discEur = qty * price;
         discP = 100;
-        discP = parseFloat(discP).toFixed(2);
+        discP = parseFloat(discP);
       }
       if (!discEur) {
         discEur = '';
@@ -42,7 +46,9 @@ var itemTotalUpdater = function itemTotalUpdater(_) {
       }
       ;
       discEurEl.value = discEur;
-      discPEl.value = discP;
+      if (discP !== '') {
+        discPEl.value = discP.toFixed(2);
+      }
       itemTotal.innerText = total.toFixed(2);
       totalsUpdater();
     });
@@ -123,6 +129,29 @@ if (document.querySelector('[data-msg]')) {
     msg.remove();
   }, 3000);
 }
+if (addLineBtn) {
+  addLineBtn.addEventListener('click', function (e) {
+    var clone = itemTemplate.content.cloneNode(true);
+    console.log('paspausta');
+    dataItems.appendChild(clone);
+    totalsUpdater();
+    var delLineBtn = document.querySelectorAll('[data-line-delete]');
+    delLineBtn.forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        console.log('paspausta delete');
+        e.target.parentElement.remove();
+        e.target.nextElementSibling.remove();
+        totalsUpdater();
+      });
+    });
+  });
+}
+
+// delLineBtn.addEventListener('click', e => {
+//     console.log('paspausta delete');
+//     e.target.parentElement.remove();
+// })
+
 var init = function init(_) {
   itemTotalUpdater();
 };
