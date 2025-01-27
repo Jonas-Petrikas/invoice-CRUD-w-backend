@@ -1,18 +1,38 @@
-const items = document.querySelectorAll('[data-item]');
+let items = document.querySelectorAll('[data-item]');
 const addLineBtn = document.querySelector('[data-btn-add-line]');
 const delLineBtn = document.querySelectorAll('[data-line-delete]');
 const itemTemplate = document.querySelector('[data-item-template]');
 const dataItems = document.querySelector('[data-items]');
 
+
+const custSerial = document.querySelector('[data-custom-serial-number]');
+const custData = document.querySelector('[data-custom-date]');
+
+// custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
+
+
+let dateNow = new Date();
+
+dateNow = `${dateNow.getFullYear()}-${String((dateNow.getMonth() + 1)).padStart(2, '0')}-${String(dateNow.getDate()).padStart(2, '0')}`;
+// custData.value = dateNow;
+
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
 const itemTotalUpdater = _ => {
+    items = document.querySelectorAll('[data-item]');
     items.forEach((item) => {
 
         const qtyEl = item.querySelector('[data-item-qty]');
+        const pEl = item.querySelector('[data-item-price]');
         const discEurEl = item.querySelector('[data-item-discount-eur]');
         const discPEl = item.querySelector('[data-item-discount-p]');
 
         let qty = parseInt(item.querySelector('[data-item-qty]').value);
-        const price = parseFloat(item.querySelector('[data-item-price]').innerText)
+        let price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value);
 
         let discEur = parseFloat(item.querySelector('[data-item-discount-eur]').value)
         let discP = parseFloat(item.querySelector('[data-item-discount-p]').value)
@@ -25,11 +45,14 @@ const itemTotalUpdater = _ => {
 
 
 
+
             let total;
             if (discEur && discEur > 0) {
                 total = qty * price - discEur;
+
             } else {
                 total = qty * price;
+
             }
 
             total > 0 ? total : total = 0;
@@ -59,6 +82,52 @@ const itemTotalUpdater = _ => {
 
 
             itemTotal.innerText = total.toFixed(2);
+
+            totalsUpdater();
+        });
+
+        pEl.addEventListener('input', (e) => {
+            price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value);
+
+
+
+            let total;
+            if (discEur && discEur > 0) {
+                total = qty * price - discEur;
+
+            } else {
+                total = qty * price;
+
+            }
+
+            total > 0 ? total : total = 0;
+
+            discP = (discEur * 100 / (price * qty));
+
+            if (discP <= 0 || !discP) {
+                discP = '';
+            } else if (discP > 100) {
+                discEur = qty * price;
+                discP = 100;
+                discP = parseFloat(discP)
+            }
+            if (!discEur) {
+                discEur = '';
+
+            } else {
+                discEur = parseFloat(discEur).toFixed(2);
+            };
+
+            discEurEl.value = discEur;
+
+            if (discP !== '') {
+                discPEl.value = discP.toFixed(2);
+            }
+
+
+
+            itemTotal.innerText = total.toFixed(2);
+
 
             totalsUpdater();
         });
@@ -118,7 +187,7 @@ const totalsUpdater = _ => {
     let totalDiscounts = 0;
 
     const subtotalHtml = document.querySelector('[data-pre-total]');
-    let shipping = document.querySelector('[data-shipping-price]').innerText;
+    let shipping = document.querySelector('[data-shipping-price]').innerText || document.querySelector('[data-shipping-price]').value;
     shipping = parseFloat(shipping);
 
     const vatHtml = document.querySelector('[data-vat]');
@@ -171,6 +240,7 @@ if (addLineBtn) {
         dataItems.appendChild(clone);
         totalsUpdater();
         const delLineBtn = document.querySelectorAll('[data-line-delete]');
+        itemTotalUpdater();
         delLineBtn.forEach((button) => {
             button.addEventListener('click', e => {
                 console.log('paspausta delete');

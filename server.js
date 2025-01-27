@@ -393,6 +393,15 @@ app.post('/update/:id', (req, res) => {
 
 });
 
+app.post('/custom/store', (req, res) => {
+    let { serial_number, date, due_date } = req.body;
+    const all = req.body;
+    console.log(all);
+    res.redirect(URL + 'custom');
+
+});
+
+
 // Start server
 
 const port = 3000;

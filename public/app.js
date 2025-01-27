@@ -12,18 +12,62 @@ var addLineBtn = document.querySelector('[data-btn-add-line]');
 var delLineBtn = document.querySelectorAll('[data-line-delete]');
 var itemTemplate = document.querySelector('[data-item-template]');
 var dataItems = document.querySelector('[data-items]');
+var custSerial = document.querySelector('[data-custom-serial-number]');
+var custData = document.querySelector('[data-custom-date]');
+
+// custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
+
+var dateNow = new Date();
+dateNow = "".concat(dateNow.getFullYear(), "-").concat(String(dateNow.getMonth() + 1).padStart(2, '0'), "-").concat(String(dateNow.getDate()).padStart(2, '0'));
+// custData.value = dateNow;
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 var itemTotalUpdater = function itemTotalUpdater(_) {
+  items = document.querySelectorAll('[data-item]');
   items.forEach(function (item) {
     var qtyEl = item.querySelector('[data-item-qty]');
+    var pEl = item.querySelector('[data-item-price]');
     var discEurEl = item.querySelector('[data-item-discount-eur]');
     var discPEl = item.querySelector('[data-item-discount-p]');
     var qty = parseInt(item.querySelector('[data-item-qty]').value);
-    var price = parseFloat(item.querySelector('[data-item-price]').innerText);
+    var price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value);
     var discEur = parseFloat(item.querySelector('[data-item-discount-eur]').value);
     var discP = parseFloat(item.querySelector('[data-item-discount-p]').value);
     var itemTotal = item.querySelector('[data-item-discounted-total]');
     qtyEl.addEventListener('input', function (e) {
       qty = parseInt(item.querySelector('[data-item-qty]').value);
+      var total;
+      if (discEur && discEur > 0) {
+        total = qty * price - discEur;
+      } else {
+        total = qty * price;
+      }
+      total > 0 ? total : total = 0;
+      discP = discEur * 100 / (price * qty);
+      if (discP <= 0 || !discP) {
+        discP = '';
+      } else if (discP > 100) {
+        discEur = qty * price;
+        discP = 100;
+        discP = parseFloat(discP);
+      }
+      if (!discEur) {
+        discEur = '';
+      } else {
+        discEur = parseFloat(discEur).toFixed(2);
+      }
+      ;
+      discEurEl.value = discEur;
+      if (discP !== '') {
+        discPEl.value = discP.toFixed(2);
+      }
+      itemTotal.innerText = total.toFixed(2);
+      totalsUpdater();
+    });
+    pEl.addEventListener('input', function (e) {
+      price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value);
       var total;
       if (discEur && discEur > 0) {
         total = qty * price - discEur;
@@ -99,7 +143,7 @@ var totalsUpdater = function totalsUpdater(_) {
   var vat = 0;
   var totalDiscounts = 0;
   var subtotalHtml = document.querySelector('[data-pre-total]');
-  var shipping = document.querySelector('[data-shipping-price]').innerText;
+  var shipping = document.querySelector('[data-shipping-price]').innerText || document.querySelector('[data-shipping-price]').value;
   shipping = parseFloat(shipping);
   var vatHtml = document.querySelector('[data-vat]');
   var totalDiscountsHtml = document.querySelector('[data-total-discounts]');
@@ -136,6 +180,7 @@ if (addLineBtn) {
     dataItems.appendChild(clone);
     totalsUpdater();
     var delLineBtn = document.querySelectorAll('[data-line-delete]');
+    itemTotalUpdater();
     delLineBtn.forEach(function (button) {
       button.addEventListener('click', function (e) {
         console.log('paspausta delete');

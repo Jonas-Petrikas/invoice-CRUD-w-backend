@@ -40,7 +40,7 @@
                     <div class="discount th">Nuolaida</div>
                     <div class="total-item th">Suma, Eur</div>
                 </div>
-                <hr>
+
                 {{#each invoice.items}}
                 <div class="item">
                     <div class="item-name">{{this.description}}</div>
@@ -49,7 +49,7 @@
                     <div class="discount">-{{this.discount.Eur}} {{this.discount.P}}</div>
                     <div class="total-item">{{this.itemDiscountedTotal}}</div>
                 </div>
-                <hr>
+
                 {{/each}}
             </div>
             <div class="totals">
