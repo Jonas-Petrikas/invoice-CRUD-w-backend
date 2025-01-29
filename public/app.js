@@ -14,6 +14,7 @@ var itemTemplate = document.querySelector('[data-item-template]');
 var dataItems = document.querySelector('[data-items]');
 var custSerial = document.querySelector('[data-custom-serial-number]');
 var custData = document.querySelector('[data-custom-date]');
+var custShipping = document.querySelector('[data-shipping-price]');
 
 // custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
 
@@ -24,6 +25,12 @@ dateNow = "".concat(dateNow.getFullYear(), "-").concat(String(dateNow.getMonth()
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+if (custShipping) {
+  custShipping.addEventListener('input', function (e) {
+    totalsUpdater();
+  });
+}
+;
 var itemTotalUpdater = function itemTotalUpdater(_) {
   items = document.querySelectorAll('[data-item]');
   items.forEach(function (item) {
@@ -148,15 +155,20 @@ var totalsUpdater = function totalsUpdater(_) {
   var vatHtml = document.querySelector('[data-vat]');
   var totalDiscountsHtml = document.querySelector('[data-total-discounts]');
   var grandTotalHtml = document.querySelector('[data-total-final]');
+  items = document.querySelectorAll('[data-item]');
   items.forEach(function (item) {
     var qty = parseInt(item.querySelector('[data-item-qty]').value);
-    var price = parseFloat(item.querySelector('[data-item-price]').innerText);
+    var price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value);
     var discEur = parseFloat(item.querySelector('[data-item-discount-eur]').value);
     if (!discEur) {
       discEur = 0;
     }
     ;
-    console.log(discEur);
+    if (!price) {
+      price = 0;
+    }
+    ;
+    console.log('qty', qty, price);
     var itemTotal = qty * price;
     subtotal += itemTotal;
     totalDiscounts += discEur;

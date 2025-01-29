@@ -7,6 +7,7 @@ const dataItems = document.querySelector('[data-items]');
 
 const custSerial = document.querySelector('[data-custom-serial-number]');
 const custData = document.querySelector('[data-custom-date]');
+const custShipping = document.querySelector('[data-shipping-price]');
 
 // custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
 
@@ -20,6 +21,13 @@ dateNow = `${dateNow.getFullYear()}-${String((dateNow.getMonth() + 1)).padStart(
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+if (custShipping) {
+    custShipping.addEventListener('input', (e) => {
+        totalsUpdater();
+    })
+};
+
 
 
 const itemTotalUpdater = _ => {
@@ -197,18 +205,21 @@ const totalsUpdater = _ => {
     const grandTotalHtml = document.querySelector('[data-total-final]');
 
 
-
+    items = document.querySelectorAll('[data-item]');
 
     items.forEach(item => {
         let qty = parseInt(item.querySelector('[data-item-qty]').value);
-        const price = parseFloat(item.querySelector('[data-item-price]').innerText);
+        let price = parseFloat(item.querySelector('[data-item-price]').innerText) || parseFloat(item.querySelector('[data-item-price]').value)
         let discEur = parseFloat(item.querySelector('[data-item-discount-eur]').value);
 
         if (!discEur) {
             discEur = 0;
         };
+        if (!price) {
+            price = 0;
+        };
 
-        console.log(discEur)
+        console.log('qty', qty, price)
 
         let itemTotal = qty * price;
 
