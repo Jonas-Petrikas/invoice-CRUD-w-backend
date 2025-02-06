@@ -14,14 +14,23 @@ var itemTemplate = document.querySelector('[data-item-template]');
 var dataItems = document.querySelector('[data-items]');
 var custSerial = document.querySelector('[data-custom-serial-number]');
 var custData = document.querySelector('[data-custom-date]');
+var custDueData = document.querySelector('[data-custom-due-date]');
 var custShipping = document.querySelector('[data-shipping-price]');
-
-// custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
-
+if (custSerial) {
+  custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
+}
 var dateNow = new Date();
+var dueDate = new Date();
+dueDate.setDate(dueDate.getDate() + 30);
+console.log(dueDate);
 dateNow = "".concat(dateNow.getFullYear(), "-").concat(String(dateNow.getMonth() + 1).padStart(2, '0'), "-").concat(String(dateNow.getDate()).padStart(2, '0'));
-// custData.value = dateNow;
-
+if (custData) {
+  custData.value = dateNow;
+}
+dueDate = "".concat(dueDate.getFullYear(), "-").concat(String(dueDate.getMonth() + 1).padStart(2, '0'), "-").concat(String(dueDate.getDate()).padStart(2, '0'));
+if (custDueData) {
+  custDueData.value = dueDate;
+}
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }

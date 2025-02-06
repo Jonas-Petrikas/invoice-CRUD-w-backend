@@ -8,23 +8,22 @@
 
                                         <h1>PVM SĄSKAITA FAKTŪRA</h1>
                                         <span>Serijos numeris: <input type="text" name='number'
-                                                        data-custom-serial-number
-                                                        value="{{invoice.number}}"></input></span>
+                                                        data-custom-serial-number value=""></input></span>
                                         <span>Data: <input type="date" name='date' data-custom-date
-                                                        value="{{invoice.date}}"></input></span>
-                                        <p data-due-date>Sumokėti iki: <input type="date" name='due_date' due-date
-                                                        value="{{invoice.due_date}}"></input></p>
+                                                        value=""></input></span>
+                                        <p data-due-date>Sumokėti iki: <input type="date" name='due_date'
+                                                        data-custom-due-date value=""></input></p>
                                 </div>
 
                                 <div class="invoice-parties">
                                         <div class="seller">
                                                 <h2>Pardavėjas:</h2>
-                                                <p> <input type="text" name='company[seller]name' data-seller-name
+                                                <p> <input type="text" name='company[seller][name]' data-seller-name
                                                                 placeholder="Įmonės pavadinimas"></input>
                                                 </p>
                                                 <p><input type="text" name='company[seller][address]'
                                                                 data-seller-address
-                                                                placeholder="Įmonės adresas"></input></p>
+                                                                placeholder="Įmonės adresas"></input>
                                                 <p><input type="text" name='company[seller][code]' data-seller-code
                                                                 placeholder="Įmonės kodas"></input></p>
                                                 <p><input type="text" name='company[seller][vat]' data-seller-VAT
@@ -75,10 +74,10 @@
                                 <template data-item-template>
                                         <div class="item" data-item>
                                                 <div type="button" class='line-delete' data-line-delete> - </div>
-                                                <div class="item-name"><input type="text" name="items[name]"
+                                                <div class="item-name"><input type="text" name="[items][name]"
                                                                 class="edit-name" placeholder="Prekės pavadinimas"
                                                                 data-item-name></input></div>
-                                                <div class="price"><input type="text" name="items[price]"
+                                                <div class="price"><input type="text" name="[items][price]"
                                                                 class="edit-price" data-item-price></input></div>
                                                 <div class="quantity"><input type="number" name="items[quantity]"
                                                                 class="edit-qty" data-item-qty value="1"></input></div>
@@ -98,7 +97,7 @@
                                 <div class="totals">
                                         <div data-sum class="data-sum"></div>
                                         <div><b>Tarpinė suma:</b> <span data-pre-total> 00.00</span> EUR</div>
-                                        <div><b>Siuntimo išlaidos:</b> <input type="text" name="[shipping-price]"
+                                        <div><b>Siuntimo išlaidos:</b> <input type="text" name="[shippingPrice]"
                                                         class="shipping-input" data-shipping-price value="0.00">
                                                 </input> EUR</div>
                                         <div><b>PVM (21%):</b> <span data-vat>00.00</span> EUR</div>

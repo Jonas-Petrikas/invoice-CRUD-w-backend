@@ -45,7 +45,7 @@ function newInv(newData) {
 
 
         if (item.discount.type === 'fixed') {
-            item.discount.Eur = item.discount.value;
+            item.discount.Eur = item.discount.value || 0;
             item.discount.P = item.discount.value * 100 / (item.price * item.quantity);
 
         } else if (item.discount.type === 'percentage') {
@@ -74,7 +74,9 @@ function newInv(newData) {
 
 
     })
+
     newData.vat = ((newData.subTotal + newData.shippingPrice) * 0.21);
+
     newData.grandTotal = newData.subTotal - newData.totalDiscounts + newData.shippingPrice + newData.vat;
 
     newData.subTotal = newData.subTotal.toFixed(2);
@@ -372,6 +374,7 @@ app.post('/update/:id', (req, res) => {
     message.text = 'Pakeitimai Išsaugoti!';
 
     fs.writeFileSync('./data/message.json', JSON.stringify(message), 'utf8');
+    console.log('lABAS', invoice.items);
 
     invoice.items.map((item, i) => {
         quantity[i] = parseInt(quantity[i]);
@@ -394,10 +397,62 @@ app.post('/update/:id', (req, res) => {
 });
 
 app.post('/custom/store', (req, res) => {
-    let { serial_number, date, due_date } = req.body;
+    // let { serial_number, date, due_date } = req.body;
     const all = req.body;
-    console.log(all);
-    res.redirect(URL + 'custom');
+    // console.log(all);
+    console.log(all.items.price.length);
+
+    const items = [];
+
+
+    if (all.items.name.length < 2) {
+        console.log('laba diena')
+        // all.items[0].push({
+        //     description: all.items.name[0],
+        //     quantity: parseInt(all.items.quantity[0]),
+        //     price: parseFloat(all.items.price[0]),
+        //     discount: {
+        //         type: 'fixed',
+        //         value: parseFloat(all.items.discount_eur[0]) || 0,
+        //     }
+        // })
+    } else {
+        all.items.name.forEach((element, i) => {
+
+            console.log('element, i', element, i)
+            items.push({
+                description: element,
+                quantity: parseInt(all.items.quantity[i]),
+                price: parseFloat(all.items.price[i]),
+                discount: {
+                    type: 'fixed',
+                    value: parseFloat(all.items.discount_eur[i]) || 0,
+                },
+            })
+
+
+
+
+        });
+    }
+
+
+    all.shippingPrice = parseFloat(all.shippingPrice);
+
+    all.items = items;
+
+    newInv(all);
+
+    let invoice = fs.readFileSync('./data/temp.json', 'utf8');
+    invoice = JSON.parse(invoice);
+
+    addItem(invoice);
+
+
+    res.redirect(URL + 'list');
+
+
+
 
 });
 

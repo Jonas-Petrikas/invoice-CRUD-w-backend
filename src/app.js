@@ -7,15 +7,35 @@ const dataItems = document.querySelector('[data-items]');
 
 const custSerial = document.querySelector('[data-custom-serial-number]');
 const custData = document.querySelector('[data-custom-date]');
+let custDueData = document.querySelector('[data-custom-due-date]');
 const custShipping = document.querySelector('[data-shipping-price]');
 
-// custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
+if (custSerial) {
+    custSerial.value = 'AB-' + getRandomInt(10000000, 99999999);
+
+}
+
 
 
 let dateNow = new Date();
 
+let dueDate = new Date();
+dueDate.setDate(dueDate.getDate() + 30);
+console.log(dueDate);
+
 dateNow = `${dateNow.getFullYear()}-${String((dateNow.getMonth() + 1)).padStart(2, '0')}-${String(dateNow.getDate()).padStart(2, '0')}`;
-// custData.value = dateNow;
+
+if (custData) {
+    custData.value = dateNow;
+}
+
+dueDate = `${dueDate.getFullYear()}-${String((dueDate.getMonth() + 1)).padStart(2, '0')}-${String(dueDate.getDate()).padStart(2, '0')}`
+
+if (custDueData) {
+    custDueData.value = dueDate;
+
+}
+
 
 
 function getRandomInt(min, max) {
